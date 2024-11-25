@@ -9,7 +9,7 @@ export default function FeaureSection() {
     <View className="my-2">
       <View className="mr-2 flex-row justify-between items-center">
         <View>
-          <Text className="font-bold text-2xl">Burger Shurgr</Text>
+          <Text className="font-bold text-2xl">Hot nd Spicy </Text>
           <Text className="font-semibold text-md text-gray-600">
             Spicy and Crispy Chicken
           </Text>
@@ -34,7 +34,7 @@ export default function FeaureSection() {
           return (
             <FeatureCard
               key={idx}
-              title="Chicken Meal"
+              title="Burgur Shrgr"
               category="Fast Food"
               review="4K"
               stars={5}
