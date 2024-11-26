@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 // Tailwind Css
-import "../global.css"
+import "../global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,7 +29,11 @@ export default function RootLayout() {
     <>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="restaurent/[restaurent]" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="restaurent/[restaurent]"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="test" options={{ headerShown: false }} />
       </Stack>
     </>
   );

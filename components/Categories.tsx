@@ -29,7 +29,7 @@ export default function Categories() {
                 className="border-2 rounded-full p-2 ml-2"
               >
                 <Image
-                  style={{ width: 60, height: 60 }}
+                  style={{ width: 40, height: 40 }}
                   source={category.pic}
                 ></Image>
               </TouchableOpacity>

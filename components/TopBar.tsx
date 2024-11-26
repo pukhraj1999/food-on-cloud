@@ -12,13 +12,9 @@ export default function TopBar() {
       <View className="flex-row items-center">
         <View
           style={{ borderColor: themeColor.text }}
-          className="flex-grow border-2 rounded-lg p-4 flex-row items-center"
+          className="flex-grow border-2 rounded-lg px-2 flex-row items-center"
         >
-          <FontAwesome
-            name="search"
-            size={30}
-            color={themeColor.text}
-          />
+          <FontAwesome name="search" size={30} color={themeColor.text} />
           <TextInput
             className="ml-2 text-2xl"
             placeholder="Search Your Food!!"
@@ -27,7 +23,7 @@ export default function TopBar() {
 
         <TouchableOpacity
           style={{ backgroundColor: themeColor.text }}
-          className="rounded-lg p-2 ml-2"
+          className="rounded-lg p-1 ml-2"
         >
           <Ionicons name="options" size={40} color="white" />
         </TouchableOpacity>
@@ -35,7 +31,7 @@ export default function TopBar() {
 
       <View className="my-2 flex-row justify-center items-center">
         <Feather name="map-pin" size={24} color={themeColor.text} />
-        <Text className="ml-1 text-xl text-center">Nakodar, Punjab | PB</Text>
+        <Text className="ml-1 text-lg text-center">Nakodar, Punjab | PB</Text>
       </View>
     </View>
   );
