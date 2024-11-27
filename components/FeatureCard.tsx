@@ -4,7 +4,7 @@ import { router } from "expo-router";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { themeColor } from "@/theme";
-import Feather from "@expo/vector-icons/Feather";
+import LocationDetail from "./LocationDetail";
 
 type FeatureCardProp = {
   title?: string;
@@ -43,12 +43,7 @@ export default function FeatureCard({
               {category}
             </Text>
           </View>
-          <View className="my-1 flex-row items-center">
-            <Feather name="map-pin" size={15} color={themeColor.text} />
-            <Text className="ml-1 text-md text-center">
-              Nakodar, Punjab | PB
-            </Text>
-          </View>
+          <LocationDetail />
         </View>
       </TouchableOpacity>
     </View>

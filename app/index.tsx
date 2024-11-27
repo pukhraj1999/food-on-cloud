@@ -5,7 +5,7 @@ import TopBar from "@/components/TopBar";
 import Categories from "@/components/Categories";
 import Features from "@/components/Features";
 
-function index() {
+export default function Index() {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <StatusBar barStyle="dark-content" />
@@ -20,5 +20,3 @@ function index() {
     </SafeAreaView>
   );
 }
-
-export default index;
