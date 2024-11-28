@@ -37,6 +37,7 @@ export default function Cart() {
       <CustomModal
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
+        title="Your Cart"
       >
         <CartContent />
       </CustomModal>
