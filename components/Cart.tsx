@@ -1,21 +1,22 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
+import { BlurView } from "expo-blur";
 import { themeColor } from "@/theme";
-import { router } from "expo-router";
 import CustomModal from "./CustomModal";
 import CartContent from "./CartContent";
+import { router } from "expo-router";
 
 export default function Cart() {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isViewCartVisible, setIsViewCartVisible] = useState<boolean>(false);
 
   return (
     <>
       <View className="absolute bottom-10 left-0 w-full z-50">
         <TouchableOpacity
           onPress={() => {
-            setIsModalVisible(true);
+            setIsViewCartVisible(true);
           }}
-          activeOpacity={0.6}
+          activeOpacity={0.4}
           style={{
             boxShadow: themeColor.shadowA,
             backgroundColor: themeColor.bgColor("1"),
@@ -34,13 +35,27 @@ export default function Cart() {
           <Text className="text-xl text-white font-bold">₹250</Text>
         </TouchableOpacity>
       </View>
+      {isViewCartVisible && (
+        <BlurView intensity={50} tint="dark" style={styles.blurBackground} />
+      )}
       <CustomModal
-        isVisible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
+        isVisible={isViewCartVisible}
+        onClose={() => setIsViewCartVisible(false)}
         title="Your Cart"
       >
-        <CartContent />
+        <CartContent
+          placeOrder={() => {
+            router.replace("/orderPlaced");
+          }}
+        />
       </CustomModal>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  blurBackground: {
+    ...StyleSheet.absoluteFillObject, // Fills the entire screen
+    zIndex: 1, // Places it beneath the modal content
+  },
+});

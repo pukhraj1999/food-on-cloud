@@ -5,7 +5,11 @@ import { themeColor } from "@/theme";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import CartCard from "./CartCard";
 
-export default function CartContent() {
+type PropCartContent = {
+  placeOrder?: () => void;
+};
+
+export default function CartContent({ placeOrder }: PropCartContent) {
   return (
     <View className="flex-1">
       <View
@@ -50,6 +54,7 @@ export default function CartContent() {
           </View>
           <View>
             <TouchableOpacity
+              onPress={placeOrder}
               style={{
                 backgroundColor: themeColor.bgColor("1"),
                 boxShadow: themeColor.shadowA,

@@ -33,6 +33,8 @@ export default function RootLayout() {
           name="restaurent/[restaurent]"
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="orderPlaced" options={{ headerShown: false }} />
+        <Stack.Screen name="delivery" options={{ headerShown: false }} />
       </Stack>
     </>
   );
