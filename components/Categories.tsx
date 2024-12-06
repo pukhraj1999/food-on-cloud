@@ -6,7 +6,7 @@ import { themeColor } from "@/theme";
 export default function Categories() {
   const [activeCategory, setActiveCategory] = useState<number>(1);
   return (
-    <View className="my-2 mx-5">
+    <View className="my-2">
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

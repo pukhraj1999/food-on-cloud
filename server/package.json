@@ -1,0 +1,15 @@
+{
+  "name": "food-on-cloud-server",
+  "version": "1.0.0",
+  "description": "Backend of online food delivery application",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon index.js"
+  },
+  "author": "Pukhraj Singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.7"
+  }
+}

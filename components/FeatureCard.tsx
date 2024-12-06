@@ -43,7 +43,6 @@ export default function FeatureCard({
               {category}
             </Text>
           </View>
-          <LocationDetail />
         </View>
       </TouchableOpacity>
     </View>

@@ -4,7 +4,7 @@ import FeaureSection from "./FeaureSection";
 
 export default function Features() {
   return (
-    <ScrollView className="pl-5 my-2" showsVerticalScrollIndicator={false}>
+    <ScrollView className="pl-5" showsVerticalScrollIndicator={false}>
       {[1, 2, 3].map((feature, idx) => {
         return <FeaureSection key={idx} />;
       })}

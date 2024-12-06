@@ -8,6 +8,7 @@ import LocationDetail from "@/components/LocationDetail";
 import RestaurentContent from "@/components/RestaurentContent";
 import Menu from "@/components/Menu";
 import Cart from "@/components/Cart";
+import Categories from "@/components/Categories";
 
 type LocalParams = {
   restaurent: string;
@@ -30,6 +31,7 @@ export default function Restaurent() {
           <View className="px-5">
             <RestaurentContent />
             <LocationDetail />
+            <Categories />
             <Menu />
           </View>
         </View>

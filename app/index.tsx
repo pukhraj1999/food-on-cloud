@@ -10,11 +10,7 @@ export default function Index() {
     <SafeAreaView className="flex-1 bg-white">
       <StatusBar barStyle="dark-content" />
 
-      {/** Top Bar */}
       <TopBar />
-
-      {/** Main */}
-      <Categories />
 
       <Features />
     </SafeAreaView>
