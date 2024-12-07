@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "start-all":"node ./server/index.js | expo start",
+    "start-all":"node ./server/app.js | expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
