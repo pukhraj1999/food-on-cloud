@@ -1,4 +1,4 @@
-import CartModal from "@/models/CartModal";
+import CartModal from "@/models/CartModel";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 

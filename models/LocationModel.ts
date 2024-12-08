@@ -1,4 +1,4 @@
-export default interface LocationModal {
+export default interface LocationModel {
   id: string;
   conutry: string;
   state: string;
