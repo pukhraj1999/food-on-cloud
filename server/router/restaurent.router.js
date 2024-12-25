@@ -5,7 +5,7 @@ const restaurentRouter = express.Router();
 
 restaurentRouter.post("/",uploadPictures, (req, res) => {
     res.json({
-        location:req.filePath,
+        locations: req.filePath,
         msg:  "File uploaded successfully",
     });
 })

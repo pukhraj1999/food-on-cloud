@@ -12,6 +12,7 @@ const app = express();
 dotenv.config();
 connectDatabase();
 
+app.use(express.static('uploads'))
 app.use(bodyParser.json({ limit: "2mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "2mb", extended: true }));
 app.use(cors());
