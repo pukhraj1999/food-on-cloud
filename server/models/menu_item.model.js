@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const menuItemSchema = mongoose.Schema(
@@ -18,17 +19,7 @@ const menuItemSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
-    picture_id: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Picture",
-      },
-    ],
-    restaurent_id: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Restaurent",
-      require: true,
-    },
+    pictures: [pictureSchema],
     category_id: {
       type: mongoose.Schema.ObjectId,
       ref: "Category",

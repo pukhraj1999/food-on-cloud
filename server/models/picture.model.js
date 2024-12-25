@@ -6,10 +6,7 @@ const pictureSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-  },
-  { Timestamp: true }
+  }
 );
 
-const Picture = mongoose.model("Picture", pictureSchema);
-
-export default Picture;
+export default pictureSchema;

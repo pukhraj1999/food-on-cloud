@@ -12,16 +12,12 @@ const restaurentSchema = mongoose.Schema(
       require: true,
     },
     location: locationSchema,
-    user_id: {
+    pictures: [pictureSchema],
+    menu: [{
       type: mongoose.Schema.ObjectId,
-      ref: "User",
-    },
-    picture_id: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Picture",
-      },
-    ],
+      ref: "MenuItem",
+      require: true,
+    }],
   },
   { Timestamp: true }
 );
