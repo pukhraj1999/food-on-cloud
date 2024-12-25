@@ -44,30 +44,38 @@ const uploadPicture = multer({
 }).array("img");
 
 const handleFileErrors = (req, res, next) => {
-    uploadPicture(req, res, function (err) {
-        if (err) {
-            switch (err.code) {
-                case "LIMIT_FILE_SIZE":
-                    err.error = "File Size is too large. Allowed file size is 2MB";
-                    break;
-                case "LIMIT_UNEXPECTED_FILE":
-                    err.error = "Unexpected files found!!";
-                    break;
-                default:
-                    err.error = err.message;
+    try {
+        uploadPicture(req, res, function (err) {
+            if (err) {
+                switch (err.code) {
+                    case "LIMIT_FILE_SIZE":
+                        err.error = "File Size is too large. Allowed file size is 2MB";
+                        break;
+                    case "LIMIT_UNEXPECTED_FILE":
+                        err.error = "Unexpected files found!!";
+                        break;
+                    default:
+                        err.error = err.message;
+                }
+                return res.status(422).json({
+                    msg: err.error,
+                    success: false,
+                });
+            } else {
+                if (!req.files) {
+                    res.status(422).json({ msg: "file not found!!", success: false });
+                }
+                next();
             }
-            return res.status(422).json({
-                msg: err.error,
-                success: false,
-            });
-        } else {
-            if (!req.files) {
-                res.status(422).json({ msg: "file not found!!", success: false });
-            }
-            next();
-        }
-    });
-};
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            msg: "Failed to Upload files!!.",
+        });
+    };
+}
 
 export const uploadPictures = (req, res, next) => {
     req.filePath = [];

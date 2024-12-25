@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 //only structure for location schema
 const locationSchema = mongoose.Schema({
