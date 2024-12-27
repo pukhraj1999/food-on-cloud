@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const menuItemSchema = mongoose.Schema(
@@ -19,7 +18,7 @@ const menuItemSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
-    pictures: [pictureSchema],
+    pictures: [String],
     category_id: {
       type: mongoose.Schema.ObjectId,
       ref: "Category",
