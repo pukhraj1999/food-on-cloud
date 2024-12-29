@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import locationSchema from "./location.model.js";
 
 const restaurentSchema = mongoose.Schema(
   {
@@ -11,13 +10,22 @@ const restaurentSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    location: locationSchema,
-    pictures: [String],
-    menu: [{
-      type: mongoose.Schema.ObjectId,
-      ref: "MenuItem",
+    latitude: {
+      type: String,
       require: true,
-    }],
+    },
+    longitude: {
+      type: String,
+      require: true,
+    },
+    pictures: [String],
+    menu: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "MenuItem",
+        require: true,
+      },
+    ],
   },
   { Timestamp: true }
 );
