@@ -89,17 +89,6 @@ export const updateRestaurent = async (req, res) => {
       });
     }
 
-    // if (
-    //   !title ||
-    //   !description ||
-    //   !location /* || !location.latitude || !location.longitude */
-    // ) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     msg: "All fields are required.",
-    //   });
-    // }
-
     const restaurent = await Restaurent.findByIdAndUpdate(
       { _id: id },
       {
