@@ -74,6 +74,13 @@ export const updateCategory = async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
 
+    if(!name){
+      return res.status(422).json({
+        success: false,
+        msg: "Category name is required.",
+      });
+    }
+
     const category = await Category.findById(id);
     if (!category) {
       res.status(422).json({
