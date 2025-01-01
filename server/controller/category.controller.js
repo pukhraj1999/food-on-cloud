@@ -37,6 +37,13 @@ export const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
 
+    if(!name){
+      return res.status(422).json({
+        success: false,
+        msg: "Category name is required.",
+      });
+    }
+
     const categoryExist = await Category.findOne({ name: name });
 
     if (categoryExist) {
