@@ -46,7 +46,7 @@ export const createRestaurent = async (req, res) => {
   try {
     const { title, description, latitude, longitude } = req.body;
 
-    if (!title || !description || !latitude || !longitude) {
+    if (!title || !description || !latitude || !longitude || req.filePath.length < 1) {
       rollbackPictures(req.filePath);
       return res.status(400).json({
         success: false,
