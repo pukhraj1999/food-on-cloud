@@ -6,6 +6,7 @@ const categorySchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    pictures: [String],
   },
   { Timestamp: true }
 );

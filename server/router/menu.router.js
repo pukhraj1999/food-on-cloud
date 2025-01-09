@@ -7,13 +7,14 @@ import {
   deleteMenu,
   updateMenuItem,
 } from "../controller/menu_item.controller.js";
+import { restrictImage } from "../middleware/restrictImage.js";
 
 const menuRouter = express.Router();
 
 menuRouter.get("/", getAllMenus);
 menuRouter.get("/:id", getMenu);
-menuRouter.post("/:id", uploadPictures, addMenu);
-menuRouter.put("/:id", updateMenuItem);
+menuRouter.post("/:id", uploadPictures, restrictImage, addMenu);
+menuRouter.put("/:id", uploadPictures, restrictImage, updateMenuItem);
 menuRouter.delete("/:id", deleteMenu);
 
 export default menuRouter;

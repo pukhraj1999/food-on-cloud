@@ -1,4 +1,5 @@
 import Category from "../models/category.model.js";
+import { rollbackPictures } from "../utils/rollback.js";
 
 export const getAllCategories = async (req, res) => {
   try {
@@ -37,16 +38,27 @@ export const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
 
+    if (!name || req.filePath.length < 1) {
+      rollbackPictures(req.filePath);
+      return res.status(422).json({
+        success: false,
+        msg: "All fields must be filled.",
+      });
+    }
+
     const categoryExist = await Category.findOne({ name: name });
 
     if (categoryExist) {
-      return res.json({
+      return res.status(422).json({
         success: false,
         msg: "Category with name " + name + " already exist.",
       });
     }
 
-    const category = new Category({ name });
+    const category = new Category({
+      name,
+      pictures: req.filePath,
+    });
     const savedCategory = await category.save();
 
     return res.json({
@@ -80,6 +92,7 @@ export const updateCategory = async (req, res) => {
       {
         $set: {
           name,
+          pictures: req.filePath.length > 0 ? req.filePath : category.pictures,
         },
       },
       {
@@ -114,6 +127,7 @@ export const deleteCategory = async (req, res) => {
     }
 
     await Category.deleteOne({ _id: id });
+    rollbackPictures(category.pictures);
 
     return res.json({
       success: true,

@@ -97,6 +97,8 @@ export const updateRestaurent = async (req, res) => {
           description,
           latitude,
           longitude,
+          pictures:
+            req.filePath.length > 0 ? req.filePath : prevRestaurent.pictures,
         },
       },
       {

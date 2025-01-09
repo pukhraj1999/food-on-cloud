@@ -145,6 +145,8 @@ export const updateMenuItem = async (req, res) => {
           currency,
           price,
           category_id,
+          pictures:
+            req.filePath.length > 0 ? req.filePath : prevMenuItem.pictures,
         },
       },
       {
