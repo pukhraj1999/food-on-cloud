@@ -38,14 +38,6 @@ export const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
 
-    if (!name || req.filePath.length < 1) {
-      rollbackPictures(req.filePath);
-      return res.status(422).json({
-        success: false,
-        msg: "All fields must be filled.",
-      });
-    }
-
     const categoryExist = await Category.findOne({ name: name });
 
     if (categoryExist) {
@@ -78,6 +70,13 @@ export const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
+
+    if (!name) {
+      return res.status(422).json({
+        success: false,
+        msg: "Category name is required.",
+      });
+    }
 
     const category = await Category.findById(id);
     if (!category) {

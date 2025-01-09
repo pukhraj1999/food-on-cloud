@@ -63,7 +63,7 @@ export const addMenu = async (req, res) => {
     // create menu item
     const { name, ingredients, currency, price, category_id } = req.body;
 
-    if (!name || !ingredients || !currency || !price || !category_id) {
+    if (!name || !ingredients || !currency || !price || !category_id || req.filePath.length < 1) {
       rollbackPictures(req.filePath);
       return res.status(422).json({
         success: false,
