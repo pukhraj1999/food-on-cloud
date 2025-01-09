@@ -5,7 +5,7 @@ import { rollbackPictures } from "../utils/rollback.js";
 
 export const getAllMenus = async (req, res) => {
   try {
-    const menus = await MenuItem.find();
+    const menus = await MenuItem.find().populate("category_id", "name").exec();
     return res.json({
       success: true,
       menus,
@@ -24,7 +24,9 @@ export const getAllMenus = async (req, res) => {
 export const getMenu = async (req, res) => {
   try {
     const { id } = req.params;
-    const menu = await MenuItem.findById(id);
+    const menu = await MenuItem.findById(id)
+      .populate("category_id", "name")
+      .exec();
     if (!menu) {
       return res.status(400).json({
         success: false,
@@ -63,7 +65,14 @@ export const addMenu = async (req, res) => {
     // create menu item
     const { name, ingredients, currency, price, category_id } = req.body;
 
-    if (!name || !ingredients || !currency || !price || !category_id || req.filePath.length < 1) {
+    if (
+      !name ||
+      !ingredients ||
+      !currency ||
+      !price ||
+      !category_id ||
+      req.filePath.length < 1
+    ) {
       rollbackPictures(req.filePath);
       return res.status(422).json({
         success: false,

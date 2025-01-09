@@ -3,7 +3,17 @@ import { rollbackPictures } from "../utils/rollback.js";
 
 export const getAllRestaurents = async (req, res) => {
   try {
-    const restaurents = await Restaurent.find();
+    const restaurents = await Restaurent.find()
+      .populate({
+        path: "menu", // Populating the 'menu' field
+        select: "name ingredients currency price pictures category_id", // Selecting fields from 'menu'
+        populate: {
+          path: "category_id", // Populating the 'category_id' field inside 'menu'
+          select: "name", // Selecting only the 'name' field from 'category_id'
+        },
+      })
+      .exec();
+
     return res.json({
       success: true,
       restaurents,
@@ -20,7 +30,16 @@ export const getAllRestaurents = async (req, res) => {
 export const getRestaurent = async (req, res) => {
   try {
     const { id } = req.params;
-    const restaurent = await Restaurent.findById(id);
+    const restaurent = await Restaurent.findById(id)
+      .populate({
+        path: "menu", // Populating the 'menu' field
+        select: "name ingredients currency price pictures category_id", // Selecting fields from 'menu'
+        populate: {
+          path: "category_id", // Populating the 'category_id' field inside 'menu'
+          select: "name", // Selecting only the 'name' field from 'category_id'
+        },
+      })
+      .exec();
 
     if (!restaurent) {
       return res.status(400).json({
@@ -46,7 +65,13 @@ export const createRestaurent = async (req, res) => {
   try {
     const { title, description, latitude, longitude } = req.body;
 
-    if (!title || !description || !latitude || !longitude || req.filePath.length < 1) {
+    if (
+      !title ||
+      !description ||
+      !latitude ||
+      !longitude ||
+      req.filePath.length < 1
+    ) {
       rollbackPictures(req.filePath);
       return res.status(400).json({
         success: false,
