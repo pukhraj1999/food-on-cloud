@@ -1,8 +1,11 @@
+import CategoryModel from "./CategoryModel";
+
 export default interface MenuModel {
-  id: string;
+  _id: string;
   name: string;
   ingredients: string;
-  category: string;
+  category_id: CategoryModel
   price: string;
-  pic: string;
+  pictures: string[];
+  currency:string
 }

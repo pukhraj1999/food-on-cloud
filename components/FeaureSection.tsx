@@ -1,18 +1,24 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, ImageProps } from "react-native";
 import React from "react";
 import { themeColor } from "@/theme";
 import FeatureCard from "./FeatureCard";
-import { restaurents } from "@/constants/FoodRestaurents";
-import { dishes } from "@/constants/FoodDishes";
+import MenuModel from "@/models/MenuModel";
+import { BASE_URL } from "@/api/API";
 
-export default function FeaureSection() {
+type FeatureProp = {
+  title?: string
+  description?: string
+  menu?: MenuModel[]
+}
+
+export default function FeaureSection({ title, description, menu = [] }: FeatureProp) {
   return (
     <View className="my-2">
       <View className="mr-2 flex-row justify-between items-center">
         <View>
-          <Text className="font-bold text-2xl">New Mangeet </Text>
+          <Text className="font-bold text-2xl">{title}</Text>
           <Text className="font-semibold text-md text-gray-600">
-            Take some food, forget the world
+            {description}
           </Text>
         </View>
 
@@ -31,17 +37,16 @@ export default function FeaureSection() {
         className="overflow-visible my-2"
         showsHorizontalScrollIndicator={false}
       >
-        {dishes
-          .filter((_, idx) => idx <= 5)
-          .map((content, idx) => {
+        {menu
+          .map((menuItem, idx) => {
             return (
               <FeatureCard
                 key={idx}
-                title="Dish Name"
-                category="Fast Food"
+                title={menuItem.name}
+                category={menuItem.category_id.name}
                 review="4K"
                 stars={5}
-                pic={content.pic}
+                pic={BASE_URL+"/"+menuItem.pictures[0]}
               />
             );
           })}

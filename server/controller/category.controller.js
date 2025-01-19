@@ -6,7 +6,7 @@ export const getAllCategories = async (req, res) => {
     const categories = await Category.find();
     return res.json({
       success: true,
-      categories,
+      result:categories,
     });
   } catch (error) {
     console.log(error);
@@ -23,7 +23,7 @@ export const getCategory = async (req, res) => {
     const category = await Category.findById(id);
     return res.json({
       success: true,
-      category,
+      result:category,
     });
   } catch (error) {
     console.log(error);
@@ -63,7 +63,7 @@ export const createCategory = async (req, res) => {
 
     return res.json({
       success: true,
-      category: savedCategory,
+      result: savedCategory,
     });
   } catch (error) {
     console.log(error);
@@ -110,7 +110,7 @@ export const updateCategory = async (req, res) => {
 
     return res.json({
       success: true,
-      category: updatedCategory,
+      result: updatedCategory,
       msg: "Category successfully updated.",
     });
   } catch (error) {

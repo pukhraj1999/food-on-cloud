@@ -1,4 +1,4 @@
-import { View, Text, Image, ImageProps, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 
@@ -11,7 +11,7 @@ type FeatureCardProp = {
   category?: string;
   stars?: number;
   review?: string;
-  pic?: ImageProps;
+  pic?: string;
 };
 
 export default function FeatureCard({
@@ -28,7 +28,7 @@ export default function FeatureCard({
         className="rounded-3xl"
         onPress={() => router.push(`/restaurent/${title}`)}
       >
-        <Image className="rounded-t-3xl h-36 w-64" source={pic} />
+        <Image className="rounded-t-3xl h-36 w-64" source={{uri:pic}} />
         <View className="p-4">
           <Text className="text-2xl">{title}</Text>
           <View className="flex-row items-center">

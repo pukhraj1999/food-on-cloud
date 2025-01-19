@@ -8,7 +8,7 @@ export const getAllMenus = async (req, res) => {
     const menus = await MenuItem.find().populate("category_id", "name").exec();
     return res.json({
       success: true,
-      menus,
+      result:menus,
       msg: "Successfully Retrieved.",
     });
   } catch (error) {
@@ -36,7 +36,7 @@ export const getMenu = async (req, res) => {
 
     return res.json({
       success: true,
-      menu,
+      result: menu,
       msg: "Successfully Retrieved.",
     });
   } catch (error) {
@@ -118,7 +118,7 @@ export const addMenu = async (req, res) => {
     return res.json({
       success: true,
       msg: "Menu added successfully.",
-      restaurent: updatedRestaurent,
+      result: updatedRestaurent,
       menuItem: savedMenuItem,
     });
   } catch (error) {
@@ -166,7 +166,7 @@ export const updateMenuItem = async (req, res) => {
 
     return res.json({
       success: true,
-      menuItem,
+      result:menuItem,
     });
   } catch (error) {
     console.log(error);

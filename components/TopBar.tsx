@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Platform } from "react-native";
 import React from "react";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -12,12 +12,13 @@ export default function TopBar() {
       <View className="flex-row items-center">
         <View
           style={{ borderColor: themeColor.text }}
-          className="flex-grow border-2 rounded-lg px-2 flex-row items-center"
+          className={"flex-grow border-2 rounded-lg flex-row items-center " + (Platform.OS === 'ios' ? 'p-2' : 'px-2')}
         >
           <FontAwesome name="search" size={30} color={themeColor.text} />
           <TextInput
             className="ml-2 text-2xl"
             placeholder="Search Your Food!!"
+            placeholderTextColor={themeColor.text}
           />
         </View>
 

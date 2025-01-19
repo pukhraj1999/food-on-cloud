@@ -1,12 +1,17 @@
 import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import FeaureSection from "./FeaureSection";
+import RestaurentModal from "@/models/RestaurentModel";
 
-export default function Features() {
+type FeatureProp = {
+  restaurents: RestaurentModal[],
+};
+
+export default function Features({ restaurents }: FeatureProp) {
   return (
     <ScrollView className="pl-5" showsVerticalScrollIndicator={false}>
-      {[1, 2, 3].map((feature, idx) => {
-        return <FeaureSection key={idx} />;
+      {restaurents.map((feature, idx) => {
+        return <FeaureSection key={idx} title={feature.title} description={feature.description} menu={feature.menu} />;
       })}
     </ScrollView>
   );

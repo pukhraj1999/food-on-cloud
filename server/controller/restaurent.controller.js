@@ -16,7 +16,7 @@ export const getAllRestaurents = async (req, res) => {
 
     return res.json({
       success: true,
-      restaurents,
+      result:restaurents,
     });
   } catch (error) {
     console.log(error);
@@ -50,7 +50,7 @@ export const getRestaurent = async (req, res) => {
 
     return res.json({
       success: true,
-      restaurent,
+      result:restaurent,
     });
   } catch (error) {
     console.log(error);
@@ -89,7 +89,7 @@ export const createRestaurent = async (req, res) => {
     const savedRestaurent = await restaurent.save();
     res.json({
       success: true,
-      restaurent: savedRestaurent,
+      result: savedRestaurent,
       msg: "Restaurent created successfully.",
     });
   } catch (error) {
@@ -134,7 +134,7 @@ export const updateRestaurent = async (req, res) => {
 
     return res.json({
       success: true,
-      restaurent,
+      result:restaurent,
     });
   } catch (error) {
     console.log(error);
