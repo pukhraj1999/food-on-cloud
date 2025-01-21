@@ -6,8 +6,11 @@ import { router } from "expo-router";
 import { themeColor } from "@/theme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function Banner() {
-  const image = restaurents[0].pic;
+type BannerProp = {
+  pic?: string;
+}
+
+export default function Banner({ pic }: BannerProp) {
   return (
     <>
       <StatusBar
@@ -16,7 +19,7 @@ export default function Banner() {
         backgroundColor="transparent"
       />
       <View className="relative">
-        <Image className="w-full h-72" source={image} />
+        <Image className="w-full h-72" source={{ uri: pic }} />
         <TouchableOpacity
           onPress={() => {
             router.back();

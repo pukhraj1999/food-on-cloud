@@ -4,14 +4,16 @@ import { themeColor } from "@/theme";
 import FeatureCard from "./FeatureCard";
 import MenuModel from "@/models/MenuModel";
 import { BASE_URL } from "@/api/API";
+import { router } from "expo-router";
 
 type FeatureProp = {
+  restaurent_id?: string
   title?: string
   description?: string
   menu?: MenuModel[]
 }
 
-export default function FeaureSection({ title, description, menu = [] }: FeatureProp) {
+export default function FeaureSection({ restaurent_id, title, description, menu = [] }: FeatureProp) {
   return (
     <View className="my-2">
       <View className="mr-2 flex-row justify-between items-center">
@@ -22,7 +24,7 @@ export default function FeaureSection({ title, description, menu = [] }: Feature
           </Text>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push(`/restaurent/${restaurent_id}`)}>
           <Text
             className="font-bold text-xl"
             style={{ color: themeColor.text }}
@@ -42,11 +44,12 @@ export default function FeaureSection({ title, description, menu = [] }: Feature
             return (
               <FeatureCard
                 key={idx}
+                id={restaurent_id}
                 title={menuItem.name}
                 category={menuItem.category_id.name}
                 review="4K"
                 stars={5}
-                pic={BASE_URL+"/"+menuItem.pictures[0]}
+                pic={BASE_URL + "/" + menuItem.pictures[0]}
               />
             );
           })}

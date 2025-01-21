@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 
 // Tailwind Css
 import "../global.css";
+import React from "react";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

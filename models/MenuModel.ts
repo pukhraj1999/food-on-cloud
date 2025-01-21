@@ -5,7 +5,7 @@ export default interface MenuModel {
   name: string;
   ingredients: string;
   category_id: CategoryModel
-  price: string;
+  price: number;
   pictures: string[];
   currency:string
 }

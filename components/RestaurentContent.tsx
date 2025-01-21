@@ -2,13 +2,20 @@ import { View, Text } from "react-native";
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { themeColor } from "@/theme";
+import MenuModel from "@/models/MenuModel";
 
-export default function RestaurentContent() {
+type RestaurentContentProp = {
+  id?: string;
+  title?: string;
+  description?: string;
+};
+
+export default function RestaurentContent({id,title,description}:RestaurentContentProp) {
   return (
     <>
-      <Text className="font-bold text-4xl">Burgr Shrgr</Text>
+      <Text className="font-bold text-4xl">{title}</Text>
       <Text className="font-semibold text-md text-gray-600">
-        Spicy and Crispy Chicken
+        {description}
       </Text>
       <View className="flex-row items-center">
         <AntDesign name="star" size={15} color={themeColor.bgColor("1")} />

@@ -7,6 +7,7 @@ import { themeColor } from "@/theme";
 import LocationDetail from "./LocationDetail";
 
 type FeatureCardProp = {
+  id?: string;
   title?: string;
   category?: string;
   stars?: number;
@@ -15,6 +16,7 @@ type FeatureCardProp = {
 };
 
 export default function FeatureCard({
+  id,
   title,
   pic,
   category,
@@ -26,7 +28,7 @@ export default function FeatureCard({
       <TouchableOpacity
         style={{ boxShadow: themeColor.shadowB }}
         className="rounded-3xl"
-        onPress={() => router.push(`/restaurent/${title}`)}
+        onPress={() => router.push(`/restaurent/${id}`)}
       >
         <Image className="rounded-t-3xl h-36 w-64" source={{uri:pic}} />
         <View className="p-4">

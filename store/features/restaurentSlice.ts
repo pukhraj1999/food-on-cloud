@@ -3,24 +3,30 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface RestaurentState {
-  restaurent: RestaurentModal;
+  restaurents?: RestaurentModal[];
+  selectedRestaurent?: RestaurentModal;
 }
 
 const initialState: RestaurentState = {
-  restaurent: {} as RestaurentModal,
+  restaurents: [] as RestaurentModal[],
+  selectedRestaurent: {} as RestaurentModal,
 };
 
 export const restaurentSlice = createSlice({
   name: "restaurent",
   initialState,
   reducers: {
-    setRestaurent: (state, action: PayloadAction<RestaurentState>) => {
-      const { restaurent } = action.payload;
-      state.restaurent = restaurent;
+    setRestaurents: (state, action: PayloadAction<RestaurentState>) => {
+      const { restaurents } = action.payload;
+      state.restaurents = restaurents;
+    },
+    setSelectedRestaurent: (state, action: PayloadAction<{id:string}>) => {
+      const { id } = action.payload;
+      state.selectedRestaurent=state.restaurents?.filter((restaurent)=>restaurent._id==id)[0];
     },
   },
 });
 
-export const { setRestaurent } = restaurentSlice.actions;
+export const { setRestaurents, setSelectedRestaurent } = restaurentSlice.actions;
 
 export default restaurentSlice.reducer;
