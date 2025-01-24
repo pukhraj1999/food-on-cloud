@@ -1,17 +1,18 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { themeColor } from "@/theme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CartModel from "@/models/CartModel";
 import { BASE_URL } from "@/api/API";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "@/store/features/restaurentSlice";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type CartCardProps = {
   cartItem?: CartModel;
 }
 
 export default function CartCard({ cartItem }: CartCardProps) {
+  const themeColor = useCustomTheme();
   const dispatch = useDispatch();
   return (
     <View className="mx-5 my-2">

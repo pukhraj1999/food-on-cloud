@@ -2,7 +2,6 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 
-import { themeColor } from "@/theme";
 import Banner from "@/components/Banner";
 import LocationDetail from "@/components/LocationDetail";
 import RestaurentContent from "@/components/RestaurentContent";
@@ -13,9 +12,10 @@ import { setCategories, setSelectedRestaurent } from "@/store/features/restauren
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { BASE_URL, getAllCategories } from "@/api/API";
-import CategoryModel from "@/models/CategoryModel";
+
 import { AxiosResponse } from "axios";
 import ResponseModel from "@/models/ResponseModel";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type LocalParams = {
   restaurent: string;
@@ -23,6 +23,7 @@ type LocalParams = {
 
 export default function Restaurent() {
   const { restaurent }: LocalParams = useLocalSearchParams();
+  const themeColor = useCustomTheme();
   const dispatch = useDispatch();
   const selectedRestaurent = useSelector((state: RootState) => state.restaurentReducer.selectedRestaurent);
   // categories

@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, ScrollView, ImageProps } from "react-native";
 import React from "react";
-import { themeColor } from "@/theme";
 import FeatureCard from "./FeatureCard";
 import MenuModel from "@/models/MenuModel";
 import { BASE_URL } from "@/api/API";
 import { router } from "expo-router";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type FeatureProp = {
   restaurent_id?: string
@@ -14,6 +14,7 @@ type FeatureProp = {
 }
 
 export default function FeaureSection({ restaurent_id, title, description, menu = [] }: FeatureProp) {
+  const themeColor = useCustomTheme();
   return (
     <View className="my-2">
       <View className="mr-2 flex-row justify-between items-center">

@@ -1,13 +1,13 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useEffect } from "react";
 
-import { themeColor } from "@/theme";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import CartCard from "./CartCard";
 import CartModel from "@/models/CartModel";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { calculateTotalAmount } from "@/store/features/restaurentSlice";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type PropCartContent = {
   cart?:CartModel[];
@@ -15,6 +15,7 @@ type PropCartContent = {
 };
 
 export default function CartContent({ cart=[], placeOrder }: PropCartContent) {
+  const themeColor = useCustomTheme();
   const dispatch = useDispatch();
   const order = useSelector((state: RootState) => state.restaurentReducer.order);
   useEffect(() => {

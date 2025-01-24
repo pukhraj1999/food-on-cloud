@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import { themeColor } from "@/theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { router } from "expo-router";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 export default function DeliveryContent() {
+  const themeColor = useCustomTheme();
   return (
     <View className="p-5">
       <View className="mx-3 flex-row items-center">

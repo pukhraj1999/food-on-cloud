@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView, StatusBar } from "react-native";
 import TopBar from "@/components/TopBar";
 

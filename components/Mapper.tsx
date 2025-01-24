@@ -1,8 +1,9 @@
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
-import { themeColor } from "@/theme";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 export default function Mapper() {
+  const themeColor = useCustomTheme();
   return (
     <MapView
       mapType="standard"

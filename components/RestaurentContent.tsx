@@ -1,8 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { themeColor } from "@/theme";
-import MenuModel from "@/models/MenuModel";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type RestaurentContentProp = {
   id?: string;
@@ -11,6 +10,7 @@ type RestaurentContentProp = {
 };
 
 export default function RestaurentContent({id,title,description}:RestaurentContentProp) {
+  const themeColor = useCustomTheme();
   return (
     <>
       <Text className="font-bold text-4xl">{title}</Text>

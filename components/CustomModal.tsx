@@ -9,7 +9,7 @@ import {
 import React, { PropsWithChildren } from "react";
 
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { themeColor } from "@/theme";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type Props = PropsWithChildren<{
   title?: string;
@@ -29,6 +29,7 @@ export default function CustomModal({
   children,
   onClose,
 }: Props) {
+  const themeColor = useCustomTheme();
   return (
     <Modal animationType="slide" transparent={true} visible={isVisible}>
       <View

@@ -1,17 +1,19 @@
 import { ScrollView, View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { themeColor } from "@/theme";
+
 import CategoryModel from "@/models/CategoryModel";
 import { BASE_URL } from "@/api/API";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { filterMenu, setSelectedCategory } from "@/store/features/restaurentSlice";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type CategoryProp ={
   categories?: CategoryModel[],
 }
 
 export default function Categories({categories=[]}:CategoryProp) {
+  const themeColor = useCustomTheme();
   const dispatch = useDispatch();
   const selectedCategory=useSelector((state: RootState) => state.restaurentReducer.selectedCategory);
   return (

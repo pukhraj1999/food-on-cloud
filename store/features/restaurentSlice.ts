@@ -3,6 +3,8 @@ import CategoryModel from "@/models/CategoryModel";
 import MenuModel from "@/models/MenuModel";
 import OrderModel from "@/models/OrderModel";
 import RestaurentModal from "@/models/RestaurentModel";
+import ThemeModel from "@/models/ThemeModel";
+import { themeOptions } from "@/theme";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
@@ -14,6 +16,7 @@ export interface RestaurentState {
   selectedCategory?: CategoryModel;
   cart?: CartModel[];
   order?: OrderModel;
+  selectedTheme?: ThemeModel;
 }
 
 const initialState: RestaurentState = {
@@ -30,6 +33,7 @@ const initialState: RestaurentState = {
     totalAmount: 0,
     discount: 0,
   } as OrderModel,
+  selectedTheme: { ...themeOptions[0] } as ThemeModel,
 };
 
 export const restaurentSlice = createSlice({
@@ -103,13 +107,16 @@ export const restaurentSlice = createSlice({
     },
     calculateTotalAmount: (state) => {
       state.order!.totalAmount = state.order!.subTotal! + state.order!.deliveryFee!;
-      if(state.order!.discount! > 0){
+      if (state.order!.discount! > 0) {
         state.order!.totalAmount! -= state.order?.totalAmount! * (state.order?.discount! / 100);
       }
-    }
-  },
+    },
+    applyTheme: (state, action: PayloadAction<ThemeModel>) => {
+      state.selectedTheme = action.payload;
+    },
+  }
 });
 
-export const { setRestaurents, setSelectedRestaurent, setCategories, setSelectedCategory, filterMenu, addToCart, removeFromCart, calculateTotalAmount } = restaurentSlice.actions;
+export const { setRestaurents, setSelectedRestaurent, setCategories, setSelectedCategory, filterMenu, addToCart, removeFromCart, calculateTotalAmount, applyTheme } = restaurentSlice.actions;
 
 export default restaurentSlice.reducer;

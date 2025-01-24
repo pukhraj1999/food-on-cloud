@@ -3,8 +3,7 @@ import React from "react";
 import { router } from "expo-router";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { themeColor } from "@/theme";
-import LocationDetail from "./LocationDetail";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type FeatureCardProp = {
   id?: string;
@@ -23,6 +22,7 @@ export default function FeatureCard({
   stars,
   review,
 }: FeatureCardProp) {
+  const themeColor = useCustomTheme();
   return (
     <View className="mr-4">
       <TouchableOpacity

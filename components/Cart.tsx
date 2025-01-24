@@ -8,12 +8,14 @@ import { router } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { calculateTotalAmount } from "@/store/features/restaurentSlice";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 export default function Cart() {
   const [isViewCartVisible, setIsViewCartVisible] = useState<boolean>(false);
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.restaurentReducer.cart);
   const order = useSelector((state: RootState) => state.restaurentReducer.order);
+  const themeColor = useCustomTheme();
   return (
     <>
       <View className="absolute bottom-10 left-0 w-full z-50">

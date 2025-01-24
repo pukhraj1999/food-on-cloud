@@ -3,11 +3,11 @@ import React, { useEffect, useRef } from "react";
 import { BlurView } from "expo-blur";
 
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { themeColor } from "@/theme";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 export default function Loader() {
   const translateX = useRef(new Animated.Value(-300)).current;
-
+  const themeColor = useCustomTheme();
   useEffect(() => {
     const animate = () => {
       Animated.timing(translateX, {

@@ -2,8 +2,7 @@ import { View, Text, StatusBar, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { restaurents } from "@/constants/FoodRestaurents";
 import { router } from "expo-router";
-
-import { themeColor } from "@/theme";
+import useCustomTheme from "@/theme/useCustomTheme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 type BannerProp = {
@@ -11,6 +10,7 @@ type BannerProp = {
 }
 
 export default function Banner({ pic }: BannerProp) {
+  const themeColor = useCustomTheme();
   return (
     <>
       <StatusBar

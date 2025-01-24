@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { addToCart, removeFromCart } from "@/store/features/restaurentSlice";
 import MenuModel from "@/models/MenuModel";
+import useCustomTheme from "@/theme/useCustomTheme";
 
 type MiniCardProp = {
   id?: string;
@@ -21,6 +22,7 @@ type MiniCardProp = {
 };
 
 export default function MiniCard({ menu, id, title, ingredients, category, currecy, price, pic }: MiniCardProp) {
+  const themeColor = useCustomTheme();
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.restaurentReducer.cart);
   const cartExist = cart?.find((cartItem) => cartItem.menuItem!._id === id);
