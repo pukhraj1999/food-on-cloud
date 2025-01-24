@@ -25,7 +25,7 @@ const menuItemSchema = mongoose.Schema(
       require: true,
     },
   },
-  { Timestamp: true }
+  { timestamps: true }
 );
 
 const MenuItem = mongoose.model("MenuItem", menuItemSchema);

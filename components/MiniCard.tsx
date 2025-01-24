@@ -4,6 +4,10 @@ import { themeColor } from "@/theme";
 
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { addToCart, removeFromCart } from "@/store/features/restaurentSlice";
+import MenuModel from "@/models/MenuModel";
 
 type MiniCardProp = {
   id?: string;
@@ -13,9 +17,13 @@ type MiniCardProp = {
   currecy?: string;
   price?: number;
   pic?: string;
+  menu?: MenuModel
 };
 
-export default function MiniCard({ id, title, ingredients, category, currecy, price, pic }: MiniCardProp) {
+export default function MiniCard({ menu, id, title, ingredients, category, currecy, price, pic }: MiniCardProp) {
+  const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.restaurentReducer.cart);
+  const cartExist = cart?.find((cartItem) => cartItem.menuItem!._id === id);
   return (
     <View className="my-2">
       <View
@@ -42,21 +50,38 @@ export default function MiniCard({ id, title, ingredients, category, currecy, pr
             <Text className="text-2xl font-bold">{currecy} {price}</Text>
           </View>
         </View>
-        <View className="flex-row items-center">
+        {cartExist && <View className="flex-row items-center">
           <TouchableOpacity
             style={{ backgroundColor: themeColor.bgColor("1") }}
             className="mx-2 h-8 w-8 rounded-full flex-row justify-center items-center"
+            onPress={() => {
+              dispatch(removeFromCart(menu as MenuModel));
+            }}
           >
             <Ionicons name="remove-sharp" size={20} color="white" />
           </TouchableOpacity>
-          <Text className="mx-2 font-bold text-xl">2</Text>
+          <Text className="mx-2 font-bold text-xl">{cartExist.quantity}</Text>
           <TouchableOpacity
             style={{ backgroundColor: themeColor.bgColor("1") }}
             className="mx-2 h-8 w-8 rounded-full flex-row justify-center items-center"
+            onPress={() => {
+              dispatch(addToCart(menu as MenuModel));
+            }}
           >
             <FontAwesome6 name="add" size={20} color="white" />
           </TouchableOpacity>
-        </View>
+        </View>}
+        {!cartExist && <View className="flex-row items-center">
+          <TouchableOpacity
+            style={{ backgroundColor: themeColor.bgColor("1") }}
+            className="mr-1 p-2 rounded-md flex-row justify-center items-center"
+            onPress={() => {
+              dispatch(addToCart(menu as MenuModel));
+            }}
+          >
+            <Text className="text-white font-bold text-xl">Add to Cart</Text>
+          </TouchableOpacity>
+        </View>}
       </View>
     </View>
   );

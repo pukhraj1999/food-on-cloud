@@ -8,7 +8,7 @@ const categorySchema = mongoose.Schema(
     },
     pictures: [String],
   },
-  { Timestamp: true }
+  { timestamps: true }
 );
 
 const Category = mongoose.model("Category", categorySchema);

@@ -1,6 +1,7 @@
 import MenuModel from "./MenuModel";
 
 export default interface CartModel {
-  id: string;
-  item: MenuModel;
+  id?: string;
+  menuItem?: MenuModel;
+  quantity?: number;
 }

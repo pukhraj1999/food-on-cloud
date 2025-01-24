@@ -13,7 +13,7 @@ export default function Menu({ menus = [] }: MenuProp) {
     <View className="my-2">
       <Text className="font-bold text-3xl">Menu</Text>
       {menus.map((menu, idx) => {
-        return <MiniCard key={idx} title={menu.name} ingredients={menu.ingredients} currecy={menu.currency} category={menu.category_id.name}  pic={BASE_URL + "/" + menu.pictures[0]} price={menu.price} />;
+        return <MiniCard key={idx} menu={menu} id={menu._id} title={menu.name} ingredients={menu.ingredients} currecy={menu.currency} category={menu.category_id.name}  pic={BASE_URL + "/" + menu.pictures[0]} price={menu.price} />;
       })}
     </View>
   );

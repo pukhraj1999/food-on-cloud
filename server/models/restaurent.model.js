@@ -27,7 +27,7 @@ const restaurentSchema = mongoose.Schema(
       },
     ],
   },
-  { Timestamp: true }
+  { timestamps: true }
 );
 
 const Restaurent = mongoose.model("Restaurent", restaurentSchema);

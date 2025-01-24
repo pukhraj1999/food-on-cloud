@@ -5,14 +5,16 @@ import { themeColor } from "@/theme";
 import CustomModal from "./CustomModal";
 import CartContent from "./CartContent";
 import { router } from "expo-router";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function Cart() {
   const [isViewCartVisible, setIsViewCartVisible] = useState<boolean>(false);
-
+  const cart = useSelector((state: RootState) => state.restaurentReducer.cart);
   return (
     <>
       <View className="absolute bottom-10 left-0 w-full z-50">
-        <TouchableOpacity
+        {cart!.length > 0 && <TouchableOpacity
           onPress={() => {
             setIsViewCartVisible(true);
           }}
@@ -33,7 +35,7 @@ export default function Cart() {
           </View>
           <Text className="text-xl text-white font-bold">View Cart</Text>
           <Text className="text-xl text-white font-bold">₹250</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
       {isViewCartVisible && (
         <BlurView intensity={50} tint="dark" style={styles.blurBackground} />

@@ -9,10 +9,13 @@ import RestaurentContent from "@/components/RestaurentContent";
 import Menu from "@/components/Menu";
 import Cart from "@/components/Cart";
 import Categories from "@/components/Categories";
-import { setSelectedRestaurent } from "@/store/features/restaurentSlice";
+import { setCategories, setSelectedRestaurent } from "@/store/features/restaurentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { BASE_URL } from "@/api/API";
+import { BASE_URL, getAllCategories } from "@/api/API";
+import CategoryModel from "@/models/CategoryModel";
+import { AxiosResponse } from "axios";
+import ResponseModel from "@/models/ResponseModel";
 
 type LocalParams = {
   restaurent: string;
@@ -22,9 +25,18 @@ export default function Restaurent() {
   const { restaurent }: LocalParams = useLocalSearchParams();
   const dispatch = useDispatch();
   const selectedRestaurent = useSelector((state: RootState) => state.restaurentReducer.selectedRestaurent);
-
+  // categories
+  const categories = useSelector((state: RootState) => state.restaurentReducer.categories);
   useEffect(() => {
     dispatch(setSelectedRestaurent({ id: restaurent }));
+    // categories
+    getAllCategories().then((res: AxiosResponse<ResponseModel>) => {
+      if (res.data.success) {
+        dispatch(setCategories({ categories: res.data.result }));
+      } else {
+        console.log(res.data.msg);
+      }
+    }).catch((err) => { console.log(err); });
   }, [restaurent]);
 
   return (
@@ -33,16 +45,17 @@ export default function Restaurent() {
         className="overflow-visible"
         showsVerticalScrollIndicator={false}
       >
-        <Banner pic={BASE_URL+"/"+selectedRestaurent?.pictures[0]}/>
+        {selectedRestaurent?.pictures && <Banner pic={BASE_URL + "/" + selectedRestaurent?.pictures[0]} />}
+
         <View
           style={{ borderTopLeftRadius: 30, borderTopRightRadius: 30 }}
           className="bg-white -mt-12  pt-6"
         >
           <View className="px-5">
-            <RestaurentContent title={selectedRestaurent?.title} description={selectedRestaurent?.description}/>
+            {selectedRestaurent && <RestaurentContent title={selectedRestaurent?.title} description={selectedRestaurent?.description} />}
             <LocationDetail />
-            <Categories />
-            <Menu  menus={selectedRestaurent?.menu}/>
+            {categories && <Categories categories={categories} />}
+            {selectedRestaurent?.menu && <Menu menus={selectedRestaurent?.menu} />}
           </View>
         </View>
       </ScrollView>

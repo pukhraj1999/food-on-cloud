@@ -5,7 +5,7 @@ import TopBar from "@/components/TopBar";
 import Features from "@/components/Features";
 import { getAllRestaurents } from "@/api/API";
 import RestaurentModal from "@/models/RestaurentModel";
-import { Axios, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import ResponseModel from "@/models/ResponseModel";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -32,7 +32,7 @@ export default function Index() {
 
       <TopBar />
 
-      <Features restaurents={restaurents as RestaurentModal[]} />
+      {restaurents && <Features restaurents={restaurents as RestaurentModal[]} />}
     </SafeAreaView>
   );
 }

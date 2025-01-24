@@ -1,10 +1,19 @@
 import { ScrollView, View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { categories } from "@/constants/FoodCategories";
 import { themeColor } from "@/theme";
+import CategoryModel from "@/models/CategoryModel";
+import { BASE_URL } from "@/api/API";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { filterMenu, setSelectedCategory } from "@/store/features/restaurentSlice";
 
-export default function Categories() {
-  const [activeCategory, setActiveCategory] = useState<number>(1);
+type CategoryProp ={
+  categories?: CategoryModel[],
+}
+
+export default function Categories({categories=[]}:CategoryProp) {
+  const dispatch = useDispatch();
+  const selectedCategory=useSelector((state: RootState) => state.restaurentReducer.selectedCategory);
   return (
     <View className="my-2">
       <ScrollView
@@ -13,14 +22,17 @@ export default function Categories() {
         className="overflow-visible"
       >
         {categories.map((category, idx) => {
-          let isActive = category.id === activeCategory;
+          let isActive = selectedCategory?._id === category._id;
           let color = isActive
             ? themeColor.bgColor("1")
             : themeColor.bgColor("0.4");
           return (
             <View key={idx} className="items-center">
               <TouchableOpacity
-                onPress={() => setActiveCategory(category.id)}
+                onPress={() => {
+                  dispatch(setSelectedCategory({ id: category._id }));
+                  dispatch(filterMenu());
+                }}
                 style={{
                   borderColor: themeColor.bgColor("1"),
                   backgroundColor: color,
@@ -30,7 +42,7 @@ export default function Categories() {
               >
                 <Image
                   style={{ width: 40, height: 40 }}
-                  source={category.pic}
+                  source={{ uri: BASE_URL + "/" +category.pictures[0] }}
                 ></Image>
               </TouchableOpacity>
               <Text className="font-bold" style={{ color: color }}>
