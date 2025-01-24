@@ -5,18 +5,22 @@ import { themeColor } from "@/theme";
 import CustomModal from "./CustomModal";
 import CartContent from "./CartContent";
 import { router } from "expo-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { calculateTotalAmount } from "@/store/features/restaurentSlice";
 
 export default function Cart() {
   const [isViewCartVisible, setIsViewCartVisible] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.restaurentReducer.cart);
+  const order = useSelector((state: RootState) => state.restaurentReducer.order);
   return (
     <>
       <View className="absolute bottom-10 left-0 w-full z-50">
         {cart!.length > 0 && <TouchableOpacity
           onPress={() => {
             setIsViewCartVisible(true);
+            dispatch(calculateTotalAmount());
           }}
           activeOpacity={0.4}
           style={{
@@ -30,11 +34,11 @@ export default function Cart() {
             style={{ backgroundColor: "rgba(255,255,255,0.3)" }}
           >
             <Text className="px-2 text-xl text-center text-white font-bold">
-              3
+              {order?.totalQuantity}
             </Text>
           </View>
           <Text className="text-xl text-white font-bold">View Cart</Text>
-          <Text className="text-xl text-white font-bold">₹250</Text>
+          <Text className="text-xl text-white font-bold">₹ {order?.subTotal}</Text>
         </TouchableOpacity>}
       </View>
       {isViewCartVisible && (
@@ -46,6 +50,7 @@ export default function Cart() {
         title="Your Cart"
       >
         <CartContent
+          cart={cart}
           placeOrder={() => {
             router.replace("/orderPlaced");
           }}

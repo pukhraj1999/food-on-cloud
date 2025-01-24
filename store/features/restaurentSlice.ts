@@ -1,6 +1,7 @@
 import CartModel from "@/models/CartModel";
 import CategoryModel from "@/models/CategoryModel";
 import MenuModel from "@/models/MenuModel";
+import OrderModel from "@/models/OrderModel";
 import RestaurentModal from "@/models/RestaurentModel";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -12,6 +13,7 @@ export interface RestaurentState {
   categories?: CategoryModel[];
   selectedCategory?: CategoryModel;
   cart?: CartModel[];
+  order?: OrderModel;
 }
 
 const initialState: RestaurentState = {
@@ -20,7 +22,14 @@ const initialState: RestaurentState = {
   selectedRestaurent: {} as RestaurentModal,
   categories: [] as CategoryModel[],
   selectedCategory: {} as CategoryModel,
-  cart: [] as CartModel[]
+  cart: [] as CartModel[],
+  order: {
+    totalQuantity: 0,
+    subTotal: 0,
+    deliveryFee: 0,
+    totalAmount: 0,
+    discount: 0,
+  } as OrderModel,
 };
 
 export const restaurentSlice = createSlice({
@@ -54,29 +63,53 @@ export const restaurentSlice = createSlice({
     },
     addToCart: (state, action: PayloadAction<MenuModel>) => {
       const menu = action.payload;
-      if(state.cart!.length > 0){
+      // add price in order
+      state.order!.subTotal! += menu.price;
+      state.order!.totalQuantity!++;
+
+      // add menu in cart
+      if (state.cart!.length > 0) {
         const cartItem = state.cart?.filter((item) => item.menuItem?._id === menu._id)[0];
-        if(cartItem){
+        if (cartItem) {
           cartItem.quantity!++;
           return;
         }
       }
+
       state.cart?.push({ menuItem: menu, quantity: 1 });
     },
     removeFromCart: (state, action: PayloadAction<MenuModel>) => {
       const menu = action.payload;
-      if(state.cart!.length > 0){
+      // remove price in order
+      if (state.order!.subTotal! > 0) {
+        state.order!.subTotal! -= menu.price;
+        state.order!.totalQuantity!--;
+      }
+
+      // remove menu from cart
+      if (state.cart!.length > 0) {
         const cartItem = state.cart?.filter((item) => item.menuItem?._id === menu._id)[0];
-        if(cartItem){
+
+        if (cartItem && cartItem.quantity! > 1) {
           cartItem.quantity!--;
           return;
+        } else if (cartItem && cartItem.quantity === 1) {
+          state!.cart!.splice(state!.cart!.indexOf(cartItem), 1);
+          return;
         }
+
       }
       state.cart?.push({ menuItem: menu, quantity: 0 });
+    },
+    calculateTotalAmount: (state) => {
+      state.order!.totalAmount = state.order!.subTotal! + state.order!.deliveryFee!;
+      if(state.order!.discount! > 0){
+        state.order!.totalAmount! -= state.order?.totalAmount! * (state.order?.discount! / 100);
+      }
     }
   },
 });
 
-export const { setRestaurents, setSelectedRestaurent, setCategories, setSelectedCategory, filterMenu, addToCart, removeFromCart } = restaurentSlice.actions;
+export const { setRestaurents, setSelectedRestaurent, setCategories, setSelectedCategory, filterMenu, addToCart, removeFromCart, calculateTotalAmount } = restaurentSlice.actions;
 
 export default restaurentSlice.reducer;

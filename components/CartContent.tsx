@@ -1,15 +1,25 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { themeColor } from "@/theme";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import CartCard from "./CartCard";
+import CartModel from "@/models/CartModel";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { calculateTotalAmount } from "@/store/features/restaurentSlice";
 
 type PropCartContent = {
+  cart?:CartModel[];
   placeOrder?: () => void;
 };
 
-export default function CartContent({ placeOrder }: PropCartContent) {
+export default function CartContent({ cart=[], placeOrder }: PropCartContent) {
+  const dispatch = useDispatch();
+  const order = useSelector((state: RootState) => state.restaurentReducer.order);
+  useEffect(() => {
+    dispatch(calculateTotalAmount());
+  }, [order]);
   return (
     <View className="flex-1">
       <View
@@ -28,8 +38,8 @@ export default function CartContent({ placeOrder }: PropCartContent) {
         </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {[1, 2, 3, 4, 5, 6].map((content, idx) => {
-          return <CartCard key={idx} />;
+        {cart.map((cartItem, idx) => {
+          return <CartCard key={idx} cartItem={cartItem} />;
         })}
       </ScrollView>
       <View
@@ -42,15 +52,15 @@ export default function CartContent({ placeOrder }: PropCartContent) {
         <View className="mx-5 py-4 p-2">
           <View className="my-2 flex-row justify-between items-center mx-5">
             <Text className="text-xl">Sub Total</Text>
-            <Text className="text-xl">₹ 250</Text>
+            <Text className="text-xl">₹ {order?.subTotal}</Text>
           </View>
           <View className="my-2 flex-row justify-between items-center mx-5">
             <Text className="text-xl">Delivery Fee</Text>
-            <Text className="text-xl">₹ 2</Text>
+            <Text className="text-xl">₹ {order?.deliveryFee}</Text>
           </View>
           <View className="my-2 flex-row justify-between items-center mx-5">
-            <Text className="text-xl font-bold">Order Total</Text>
-            <Text className="text-xl font-bold">₹ 252</Text>
+            <Text className="text-xl font-bold">Total Amount</Text>
+            <Text className="text-xl font-bold">₹ {order?.totalAmount}</Text>
           </View>
           <View>
             <TouchableOpacity
