@@ -21,4 +21,8 @@ export const themeOptions = [{
   id: 4,
   textColorOption: "#D84040",
   bgColorOption: "216, 64, 64",
+},{
+  id: 5,
+  textColorOption: "#09122C",
+  bgColorOption: "9, 18, 44",
 }]
